@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name" translatable="false">YouNews</string>
+    <string name="go" translatable="false">go</string>
+    <string name="ALL_World_is_heare">All world is heare</string>
+    <string name="no_internet_connection">no internet conection</string>
+    <string name="settings_min_magnitude_key">21</string>
+    <string name="settings_min_time_default">121</string>
+    <string name="settings_order_by_key">121212</string>
+    <string name="settings_order_by_default">non</string>
+    <string name="no_find_news">no find news</string>
+    <string name="settings_menu_item">Settings menu iem</string>
+    <string name="settings_order_by_label">gfgfgfg</string>
+    <string name="settings_min_magnitude_default">hghhh</string>
+    <string name="settings_min_magnitude_label">hg</string>
+</resources>
