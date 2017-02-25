@@ -40,8 +40,8 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
         setContentView(R.layout.activity_news_);
         // Create ListView which will display the NEws Class variables
 
-        ListView newsList = (ListView)findViewById(R.id.list);
-        myEmptyTextView=(TextView)findViewById(R.id.textView5);
+        ListView newsList = (ListView) findViewById(R.id.list);
+        myEmptyTextView = (TextView) findViewById(R.id.textView5);
         adapter = new News_Adapter(this, new ArrayList<News>());
         newsList.setEmptyView(myEmptyTextView);
         newsList.setAdapter(adapter);
@@ -50,17 +50,24 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 News kurEar = adapter.getItem(position);
                 Uri newsUri = Uri.parse(kurEar.getUrl());
-                Intent webSuitInt = new Intent(Intent.ACTION_VIEW,newsUri);
+                Intent webSuitInt = new Intent(Intent.ACTION_VIEW, newsUri);
                 startActivity(webSuitInt);
             }
         });
 
-        LoaderManager loaderManager = getLoaderManager();
-
-
-        loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        ConnectivityManager menedgerConnect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        // створюємо NetworkInfo який надаватиме інформацію про підключення чи не підключення пристрою
+        NetworkInfo netInfo = menedgerConnect.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            // якщо є зєднання то запускається LoaderManager який буде завантажувати інформацію з сервера
+            LoaderManager myLoaderMenedger = getLoaderManager();
+            myLoaderMenedger.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        } else {//якщо ні то на пустому екрані зявиться повідомлення про відсутність зєднання з інтернетом
+            View lodigIndicator = findViewById(R.id.progressBar);
+            lodigIndicator.setVisibility(View.GONE);
+            myEmptyTextView.setText(R.string.no_internet_connection);
+        }
     }
-
     @Override
     public Loader<List<News>> onCreateLoader ( int i, Bundle bundle){
         return new NewsLoader(this, USGS_REQUEST_URL);
@@ -69,6 +76,10 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
     @Override
     public void onLoadFinished
             (Loader< List < News >> loader, List < News > earthquakes){
+        View loadingIndicator = findViewById(R.id.progressBar);
+        loadingIndicator.setVisibility(View.GONE);
+
+        myEmptyTextView.setText(R.string.no_find_news);
         adapter.clear();
 
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
