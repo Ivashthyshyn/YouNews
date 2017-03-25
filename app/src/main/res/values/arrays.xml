@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 <resources>
-    <string-array name="ssss">sssss</string-array>
-    <string-array name="settings_order_by_values">values</string-array>
+    <string-array name="settings_order_by_category">
+        <item>@string/all</item>
+        <item>@string/sport</item>
+        <item>@string/football</item>
+        <item>@string/culture</item>
+        <item>@string/business</item>
+        <item>@string/economic</item>
+        <item>@string/travel</item>
+    </string-array>
+    <string-array name="settings_order_by_category_value">
+        <item>@string/sport_value</item>
+        <item>@string/football_value</item>
+        <item>@string/culture_value</item>
+        <item>@string/business_value</item>
+        <item>@string/economic_value</item>
+        <item>@string/travel_value</item>
+    </string-array>
+    <string-array name="settings_order_by_country">
+        <item>@string/united_s_a</item>
+        <item>@string/ukraine</item>
+        <item>@string/europe</item>
+        <item>@string/russia</item>
+        <item>@string/spain</item>
+        <item>@string/turkey</item>
+    </string-array>
+    <string-array name="settings_order_by_country_value">
+        <item>@string/united_s_a_value</item>
+        <item>@string/ukraine_value</item>
+        <item>@string/europe_value</item>
+        <item>@string/russian_value</item>
+        <item>@string/spane_value</item>
+        <item>@string/turk_value</item>
+    </string-array>
+
+
 </resources>

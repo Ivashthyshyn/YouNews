@@ -19,6 +19,11 @@ import static android.R.attr.resource;
  */
 
 public class News_Adapter extends ArrayAdapter<News> {
+    public class ViewHolder{
+        public TextView timeText;
+        public TextView titleText;
+        public TextView urlText;
+    }
     public News_Adapter(Context context, List<News> objects) {
         super(context,0, objects);
     }
@@ -28,10 +33,16 @@ public class News_Adapter extends ArrayAdapter<News> {
     public View getView(int position, View convertView, ViewGroup parent) {
         //
         View myView = convertView;
+        ViewHolder holder;
         if (myView==null){
             myView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
-
+        holder = new ViewHolder();
+            holder.timeText = (TextView) myView.findViewById(R.id.textView2);
+            holder.titleText = (TextView)myView.findViewById(R.id.textView);
+            holder.urlText = (TextView)myView.findViewById(R.id.textView3);
+            myView.setTag(holder);
         }
+        holder = (ViewHolder)myView.getTag();
         News bildNews = getItem(position);
 
         TextView timeText = (TextView)myView.findViewById(R.id.textView2);
