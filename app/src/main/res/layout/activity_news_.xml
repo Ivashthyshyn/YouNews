@@ -24,12 +24,12 @@
         android:layout_centerInParent="true"
         android:textAppearance="?android:textAppearanceMedium"
         android:id="@+id/textView5" />
-    <ListView
+
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"/>
-        />
+        android:layout_height="match_parent" /><![CDATA[
+
+    />
+]]>
 </RelativeLayout>
