@@ -39,10 +39,7 @@ private ArrayList myList;
      * parsing a JSON response.
      */
     public static List<News> extractNews(String requestUrl) {
-
-        // Create an empty ArrayList that we can start adding earthquakes to
-
-
+        //get url for String data
         URL url = createUrl(requestUrl);
 
         // Perform HTTP request to the URL and receive a JSON response back
@@ -136,6 +133,7 @@ private ArrayList myList;
      * about the first earthquake from the input earthquakeJSON string.
      */
     private static ArrayList <News> extractFeatureFromJson(String earthquakeJSON) {
+        // Create an empty ArrayList that we can start adding news to
         ArrayList<News> newses = new ArrayList<>();
 
 
@@ -143,32 +141,47 @@ private ArrayList myList;
         if (TextUtils.isEmpty(earthquakeJSON)) {
             return null;
         }
-
+        // Try to parse the JSON response string. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
             JSONObject baseJsonResponse = new JSONObject(earthquakeJSON);
+            // Extract the JSONArray associated with the key called "response",
+            // which represents a list of response
             JSONObject response = baseJsonResponse.getJSONObject("response");
             JSONArray featureArray = response.getJSONArray("results");
 
 
             if (featureArray.length() > 0) {
+                // Get a single news at position i within the list of news
                 for (int i = 0; i < featureArray.length(); i++) {
-                    JSONObject section = featureArray.getJSONObject(i);
 
+                    JSONObject section = featureArray.getJSONObject(i);
+                    // Extract the value for the key called "webTitle"
                     String Title = section.getString("webTitle");
+                    // Extract the value for the key called "sectionName"
                     String sectionName = section.getString("sectionName");
+                    // Extract the value for the key called "url"
                     String webUrl = section.getString("webUrl");
+                    // Extract the value for the key called "time"
                     String Time = section.getString("webPublicationDate");
 
-
-                    News resurseNews = new News(Title,Time, webUrl,sectionName);
+                    // Create a new {@link News} object with the title, time, webUrl,
+                    //and sectionName from the JSON response.
+                    News resurseNews = new News(Title,Time, webUrl, sectionName);
+                    // Add the new {@link News} to the list of news.
                     newses.add(resurseNews);
 
 
                 }
             }
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e(LOG_TAG, "Problem parsing the news JSON results", e);
         }
+        // Return the list of
         return newses;
     }
 }

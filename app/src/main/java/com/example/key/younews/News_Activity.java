@@ -3,6 +3,7 @@ package com.example.key.younews;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -22,7 +23,8 @@ import java.util.List;
 public class News_Activity extends AppCompatActivity  implements LoaderCallbacks <List<News>>,SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String LOG_TAG = News_Activity.class.getSimpleName();
 
-    private static final String USGS_REQUEST_URL ="http://content.guardianapis.com/search?from-date=2017-02-20&to-date=2017-02-24&page-size=30&q=news&api-key=cecf2795-0b87-4a86-a037-102de4826ab1";
+    private static final String USGS_REQUEST_URL =
+            "http://content.guardianapis.com/search?from-date=2017-02-20&to-date=2017-02-24&page-size=30&q=news&api-key=cecf2795-0b87-4a86-a037-102de4826ab1";
     private static final int YOU_NEWS_LOADER_ID = 1;
     private RecyclerAdapter adapter;
     private TextView myEmptyTextView;
@@ -40,14 +42,15 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
+
         ConnectivityManager menedgerConnect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        // створюємо NetworkInfo який надаватиме інформацію про підключення чи не підключення пристрою
+       // provides information about connecting to the Internet
         NetworkInfo netInfo = menedgerConnect.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnected()) {
-            // якщо є зєднання то запускається LoaderManager який буде завантажувати інформацію з сервера
+         //  if the connection is valid LoaderManager download information remote server
             LoaderManager myLoaderMenedger = getLoaderManager();
             myLoaderMenedger.initLoader(YOU_NEWS_LOADER_ID, null, this);
-        } else {//якщо ні то на пустому екрані зявиться повідомлення про відсутність зєднання з інтернетом
+        } else {
             View lodigIndicator = findViewById(R.id.progressBar);
             lodigIndicator.setVisibility(View.GONE);
             myEmptyTextView.setText(R.string.no_internet_connection);
@@ -57,21 +60,24 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
 
     @Override
     public Loader<List<News>> onCreateLoader ( int i, Bundle bundle){
+
+        // use SharedPreferences for relevant news from the remote server depending on user preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // register category selection
         String nameCategoryNews = sharedPrefs.getString(
                 getString(R.string.settings_category_order_by_key),
                 getString(R.string.settings_category_order_by_default));
-
+        // register country selection
         String nameCountry = sharedPrefs.getString(
                 getString(R.string.settings_country_order_by_key),
                 getString(R.string.settings_country_order_by_default)
         );
-
+        // create base Uri from constant URL
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
 
-
+        //uriBuilder use to create new Uri Custom
         uriBuilder.appendQueryParameter("category", nameCategoryNews);
         uriBuilder.appendQueryParameter("q", nameCountry);
         return new NewsLoader(this, uriBuilder.toString());
@@ -90,6 +96,9 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
         // data set. This will trigger the ListView to update.
         if (newses != null && !newses.isEmpty()) {
             adapter.swapList(newses);
+            myEmptyTextView.setVisibility(View.GONE);
+
+
         }
     }
 
@@ -102,6 +111,7 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.settings_category_order_by_key))
                 || key.equals(getString(R.string.settings_category_order_by_key))){
+
             adapter.swapList(null);
             // Hide the empty state text view as the loading indicator will be displayed
             myEmptyTextView.setVisibility(View.GONE);
