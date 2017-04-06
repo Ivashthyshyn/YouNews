@@ -86,10 +86,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if (list != null) {
             this.notifyDataSetChanged();
         }
-
     }
 
-
+    /**
+     * Create ViewHolder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View mView = LayoutInflater.from(parent.getContext())
