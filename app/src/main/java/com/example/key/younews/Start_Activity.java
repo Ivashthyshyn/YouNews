@@ -14,7 +14,9 @@ public class Start_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_);
+        // start button
         Button goButton = (Button)findViewById(R.id.button);
+        // use Intent to go the news list
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -24,6 +26,7 @@ public class Start_Activity extends AppCompatActivity {
         });
     }
     @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;

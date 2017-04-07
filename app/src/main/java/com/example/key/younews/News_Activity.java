@@ -19,6 +19,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.data;
+
 
 public class News_Activity extends AppCompatActivity  implements LoaderCallbacks <List<News>>,SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String LOG_TAG = News_Activity.class.getSimpleName();
@@ -72,12 +74,17 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
                 getString(R.string.settings_country_order_by_key),
                 getString(R.string.settings_country_order_by_default)
         );
+        // get a date with  SettingsActivity
+       String mDate = SettingsActivity.selectedDate;
+
         // create base Uri from constant URL
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
 
         //uriBuilder use to create new Uri Custom
+        uriBuilder.appendQueryParameter("from-date", mDate);
+        uriBuilder.appendQueryParameter("to-date", mDate);
         uriBuilder.appendQueryParameter("category", nameCategoryNews);
         uriBuilder.appendQueryParameter("q", nameCountry);
         return new NewsLoader(this, uriBuilder.toString());

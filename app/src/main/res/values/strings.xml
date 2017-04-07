@@ -10,11 +10,7 @@
     <string name="no_find_news">no find news</string>
 
 
-
-
     <string name="title_activity_settings">Settings</string>
-
-
 
 
     <string name="settings_order_by_category">Category</string>
@@ -75,8 +71,6 @@
     <string name="settings_order_by_label">Category News</string>
     <string name="settings_category_order_by_key" translatable="false">order_by_category</string>
     <string name="settings_category_order_by_default" translatable="false">@string/all_value</string>
-
-
 
 
     <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
