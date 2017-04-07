@@ -6,6 +6,9 @@
 
     <string name="settings_min_time_default">121</string>
 
+    <string name="select_date">Select Date</string>
+
+    <string name="ready">Ready</string>
 
     <string name="no_find_news">no find news</string>
 

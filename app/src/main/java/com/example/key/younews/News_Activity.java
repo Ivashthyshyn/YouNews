@@ -75,7 +75,7 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
                 getString(R.string.settings_country_order_by_default)
         );
         // get a date with  SettingsActivity
-       String mDate = SettingsActivity.selectedDate;
+       String mDate = SettingsActivity.strDate;
 
         // create base Uri from constant URL
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
