@@ -5,17 +5,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/dateText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edit Date" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:text="Select dates News" />
+
+        <TextView
+            android:id="@+id/action_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
+            android:text="Today" />
+    </LinearLayout>
 
     <fragment
         android:name="com.example.key.younews.SettingsActivity$NewsPreferansFragment"

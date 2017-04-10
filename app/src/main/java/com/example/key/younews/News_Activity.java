@@ -3,7 +3,6 @@ package com.example.key.younews;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
-import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -16,10 +15,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import static android.R.attr.data;
+import static com.example.key.younews.SettingsActivity.SAVED_TEXT;
 
 
 public class News_Activity extends AppCompatActivity  implements LoaderCallbacks <List<News>>,SharedPreferences.OnSharedPreferenceChangeListener {
@@ -62,9 +66,21 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
 
     @Override
     public Loader<List<News>> onCreateLoader ( int i, Bundle bundle){
-
         // use SharedPreferences for relevant news from the remote server depending on user preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // determine the current date
+        Calendar c = Calendar.getInstance();
+        Date date  = c.getTime();
+        // converts a date in the appropriate format
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String stringDate = simpleDateFormat.format(date);
+        // if SAVED_TEXT is null write  current date
+        if (sharedPrefs.getString(SAVED_TEXT,"") == "" ) {
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            editor.putString(SAVED_TEXT, stringDate);
+            editor.commit();
+            Toast.makeText(this, "date saved ", Toast.LENGTH_SHORT).show();
+        }
         // register category selection
         String nameCategoryNews = sharedPrefs.getString(
                 getString(R.string.settings_category_order_by_key),
@@ -75,7 +91,7 @@ public class News_Activity extends AppCompatActivity  implements LoaderCallbacks
                 getString(R.string.settings_country_order_by_default)
         );
         // get a date with  SettingsActivity
-       String mDate = SettingsActivity.strDate;
+       String mDate = sharedPrefs.getString(SAVED_TEXT,"");
 
         // create base Uri from constant URL
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);

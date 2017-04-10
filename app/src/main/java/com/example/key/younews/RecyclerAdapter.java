@@ -1,4 +1,5 @@
 package com.example.key.younews;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -116,12 +121,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+            // get News to position
             News myNews = mNews.get(position);
+            // create date with standard ISO 8601 String
+            Date date = null;
+            // get date from server theGuardiam
             String time = myNews.getData();
-            String [] newsTime = time.split("T");
-
-            holder.timeText.setText(newsTime[0]);
+            //standard ISO 8601 format
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+            try {
+                date = simpleDateFormat.parse(time.replaceAll("Z$", "+0000"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            // move Date to String date using the appropriate format
+            SimpleDateFormat format = new SimpleDateFormat("E, MMM dd yyyy");
+            // set Text with String home date
+            holder.timeText.setText(format.format(date));
             holder.titleText.setText(myNews.getTitle());
             holder.mySection.setText(myNews.getSection());
             holder.myUrl = myNews.getUrl();
