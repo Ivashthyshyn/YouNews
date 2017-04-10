@@ -1,11 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:compatibility="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.key.younews.Start_Activity">
+
     <item
         android:id="@+id/action_settings"
-        android:title="@string/settings_menu_item"
         android:icon="@mipmap/ic_launcher"
         android:orderInCategory="1"
-        app:showAsAction="ifRoom" />
+        android:title="@string/settings_menu_item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_date"
+        android:title="@string/settings_menu_item"
+        app:showAsAction="always"
+        compatibility:actionViewClass="android.widget.TextView"/>
+
+
 </menu>

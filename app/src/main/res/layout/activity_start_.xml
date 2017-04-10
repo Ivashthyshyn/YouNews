@@ -32,4 +32,5 @@
         android:textSize="40sp"
         android:textStyle="bold"
         android:id="@+id/button" />
+
 </LinearLayout>

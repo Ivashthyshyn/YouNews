@@ -22,7 +22,7 @@
         <activity android:name=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.key.younews.Start_Activity"/>
+                android:value="com.example.key.younews.Start_Activity" />
         </activity>
     </application>
 
